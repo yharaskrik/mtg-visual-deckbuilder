@@ -1,6 +1,6 @@
 import { Card } from '@mtg/scryfall-api';
 import { createAction, props } from '@ngrx/store';
-import { MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
+import { Deck, MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
 
 export const moveColumn = createAction(
   '[@mtg/deckbuilder/card/move/column] Move card from one column to another',
@@ -19,6 +19,16 @@ export const addCard = createAction(
 
 export const addNewDeck = createAction(
   '[@mtg/deckbuilder/deck/add] Add a new deck'
+);
+
+export const chooseDeck = createAction(
+  '[@mtg/deckbuilder/deck/choose] Choose a deck',
+  props<{ deckId: string }>()
+);
+
+export const updateDeck = createAction(
+  '[@mtg/deckbuilder/deck/update',
+  props<{ update: Omit<Deck, 'deckId' | 'cards'> }>()
 );
 
 export const removeCard = createAction(

@@ -5,13 +5,19 @@ import { Observable } from 'rxjs';
 import {
   addCard,
   addNewDeck,
+  chooseDeck,
   moveColumn,
   moveInColumn,
   removeCard,
   sortCards,
+  updateDeck,
 } from './deckbuilder-state.actions';
-import { selectDeckCards } from './deckbuilder-state.selectors';
-import { MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
+import {
+  selectDeck,
+  selectDeckCards,
+  selectDeckList,
+} from './deckbuilder-state.selectors';
+import { Deck, MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
 
 @Injectable({ providedIn: 'root' })
 export class DeckbuilderStateFacade {
@@ -19,6 +25,14 @@ export class DeckbuilderStateFacade {
 
   selectDeckCards(): Observable<Card[][] | undefined> {
     return this._store.pipe(select(selectDeckCards));
+  }
+
+  selectDecks(): Observable<Deck[]> {
+    return this._store.pipe(select(selectDeckList));
+  }
+
+  selectDeck(): Observable<Deck | undefined> {
+    return this._store.pipe(select(selectDeck));
   }
 
   moveInColumn($event: MoveInColumnEvent): void {
@@ -43,5 +57,13 @@ export class DeckbuilderStateFacade {
 
   sortCards(): void {
     this._store.dispatch(sortCards());
+  }
+
+  chooseDeck(deckId: string): void {
+    this._store.dispatch(chooseDeck({ deckId }));
+  }
+
+  updateDeck(update: Omit<Deck, 'deckId' | 'cards'>): void {
+    this._store.dispatch(updateDeck({ update }));
   }
 }

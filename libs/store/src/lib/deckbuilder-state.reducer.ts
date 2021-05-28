@@ -4,10 +4,12 @@ import { Action, createReducer, on } from '@ngrx/store';
 import {
   addCard,
   addNewDeck,
+  chooseDeck,
   moveColumn,
   moveInColumn,
   removeCard,
   sortCards,
+  updateDeck,
 } from './deckbuilder-state.actions';
 import {
   Deck,
@@ -32,6 +34,21 @@ function mergeDeckIn(deck: Deck, state: DeckbuilderState): DeckbuilderState {
 
 const reducer = createReducer<DeckbuilderState>(
   initialDeckbuilderState,
+  on(updateDeck, (state, { update }) =>
+    state.selectedDeck
+      ? mergeDeckIn(
+          {
+            ...getSelectedDeck(state.selectedDeck, state),
+            ...update,
+          },
+          state
+        )
+      : state
+  ),
+  on(chooseDeck, (state, { deckId }) => ({
+    ...state,
+    selectedDeck: deckId,
+  })),
   on(sortCards, (state) => {
     if (!state.selectedDeck) {
       return state;

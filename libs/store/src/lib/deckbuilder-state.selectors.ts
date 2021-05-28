@@ -15,6 +15,10 @@ export const { selectDecks, selectSelectedDeck } = createChildSelectors(
   initialDeckbuilderState
 );
 
+export const selectDeckList = createSelector(selectDecks, (decks) =>
+  Object.values(decks)
+);
+
 export const selectDeck = createSelector(
   selectDecks,
   selectSelectedDeck,

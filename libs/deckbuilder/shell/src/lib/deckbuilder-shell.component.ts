@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {
+  Deck,
   DeckbuilderStateFacade,
   MoveColumnEvent,
   MoveInColumnEvent,
@@ -12,6 +13,10 @@ import {
 })
 export class DeckbuilderShellComponent {
   cards$ = this.deckbuilderStateFacade.selectDeckCards();
+
+  decks$ = this.deckbuilderStateFacade.selectDecks();
+
+  deck$ = this.deckbuilderStateFacade.selectDeck();
 
   constructor(private deckbuilderStateFacade: DeckbuilderStateFacade) {}
 
@@ -33,5 +38,17 @@ export class DeckbuilderShellComponent {
 
   sortCards(): void {
     this.deckbuilderStateFacade.sortCards();
+  }
+
+  chooseDeck($event: Event): void {
+    this.deckbuilderStateFacade.chooseDeck(($event.target as any).value);
+  }
+
+  updateDeck(update: Omit<Deck, 'deckId' | 'cards'>): void {
+    this.deckbuilderStateFacade.updateDeck(update);
+  }
+
+  trackDeck(index: number, deck: Deck): string {
+    return deck.deckId;
   }
 }
