@@ -1,5 +1,4 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Card } from '@mtg/scryfall-api';
 import { Action, createReducer, on } from '@ngrx/store';
 import {
   addCard,
@@ -16,7 +15,7 @@ import {
   DeckbuilderState,
   initialDeckbuilderState,
 } from './deckbuilder.state';
-import { createColumns } from './utils';
+import { createColumns, sortDeck } from './utils';
 
 function getSelectedDeck(deckId: string, state: DeckbuilderState): Deck {
   return { ...state.decks[deckId] };
@@ -56,18 +55,7 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck = getSelectedDeck(state.selectedDeck, state);
 
-    const allCards: Card[] = state.decks[state.selectedDeck].cards.flat();
-
-    const highestCmc = allCards.reduce(
-      (prev, cur) => (cur.cmc > prev ? cur.cmc : prev),
-      0
-    );
-
-    const cards = createColumns(highestCmc < 10 ? 10 : highestCmc + 1);
-
-    allCards.forEach((card) => cards[card.cmc].push(card));
-
-    deck.cards = cards;
+    deck.cards = sortDeck(state.decks[state.selectedDeck].cards);
 
     return mergeDeckIn(deck, state);
   }),

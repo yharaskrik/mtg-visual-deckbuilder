@@ -27,3 +27,6 @@ Select Deck
   (moveInColumn)="moveInColumn($event)"
   (removeCard)="removeCard($event)"
 ></mtg-deckbuilder-shell-ui>
+<div class="graph">
+  <mtg-sparkline-chart [points]="points$ | ngrxPush"></mtg-sparkline-chart>
+</div>

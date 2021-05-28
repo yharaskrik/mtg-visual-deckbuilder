@@ -11,6 +11,7 @@ import {
   ColourTotal,
   emptyColourTotal,
   joinColourMap,
+  sortDeck,
 } from './utils';
 
 export const selectDeckbuilderState = createFeatureSelector<DeckbuilderState>(
@@ -78,3 +79,13 @@ export const selectColourRatios = createSelector(
     );
   }
 );
+
+export const selectCurve = createSelector(selectDeckCards, (cards) => {
+  const sortedCards = sortDeck(cards);
+
+  return sortedCards.map((column, index) => ({
+    x: index,
+    y: column.length,
+    tooltip: `${column.length} cards at ${index} mana value.`,
+  }));
+});

@@ -69,3 +69,18 @@ export const calcColumnColours = memoizee(function (
 
   return colourTotals;
 });
+
+export function sortDeck(cards: Card[][]): Card[][] {
+  const allCards: Card[] = cards.flat();
+
+  const highestCmc = allCards.reduce(
+    (prev, cur) => (cur.cmc > prev ? cur.cmc : prev),
+    0
+  );
+
+  const emptyColumns = createColumns(highestCmc < 10 ? 10 : highestCmc + 1);
+
+  allCards.forEach((card) => emptyColumns[card.cmc].push(card));
+
+  return emptyColumns;
+}

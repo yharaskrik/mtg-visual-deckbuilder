@@ -36,6 +36,9 @@
     },
     "store": {
       "tags": []
+    },
+    "sparkline-chart": {
+      "tags": []
     }
   }
 }

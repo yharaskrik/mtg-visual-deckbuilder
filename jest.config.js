@@ -5,5 +5,6 @@ module.exports = {
     '<rootDir>/libs/scryfall-api',
     '<rootDir>/libs/card-search',
     '<rootDir>/libs/store',
+    '<rootDir>/libs/sparkline-chart',
   ],
 };

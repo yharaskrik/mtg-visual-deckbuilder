@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Card } from '@mtg/scryfall-api';
+import { Point } from '@mtg/sparkline-chart';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
@@ -15,6 +16,7 @@ import {
 import {
   selectAverageManaValue,
   selectColourRatios,
+  selectCurve,
   selectDeck,
   selectDeckCards,
   selectDeckList,
@@ -25,6 +27,10 @@ import { Deck, MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
 @Injectable({ providedIn: 'root' })
 export class DeckbuilderStateFacade {
   constructor(private _store: Store) {}
+
+  selectCurve(): Observable<Point[]> {
+    return this._store.pipe(select(selectCurve));
+  }
 
   selectColourRatios(): Observable<string[]> {
     return this._store.pipe(select(selectColourRatios));

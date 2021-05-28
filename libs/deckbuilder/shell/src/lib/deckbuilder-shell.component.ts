@@ -24,6 +24,8 @@ export class DeckbuilderShellComponent {
 
   ratios$ = this.deckbuilderStateFacade.selectColourRatios();
 
+  points$ = this.deckbuilderStateFacade.selectCurve();
+
   constructor(private deckbuilderStateFacade: DeckbuilderStateFacade) {}
 
   moveColumn($event: MoveColumnEvent): void {
