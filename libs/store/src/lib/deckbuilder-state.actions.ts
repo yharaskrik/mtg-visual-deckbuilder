@@ -25,3 +25,7 @@ export const removeCard = createAction(
   '[@mtg/deckbuilder/card/remove] Remove a card',
   props<{ column: number; index: number }>()
 );
+
+export const sortCards = createAction(
+  '[@mtg/deckbuilder/deck/sort] Sort cards in deck by cmc'
+);

@@ -30,4 +30,8 @@ export class DeckbuilderShellComponent {
   removeCard($event: { column: number; index: number }): void {
     this.deckbuilderStateFacade.removeCard($event);
   }
+
+  sortCards(): void {
+    this.deckbuilderStateFacade.sortCards();
+  }
 }
