@@ -10,7 +10,11 @@
     *ngFor="let card of cards; let i = index"
     cdkDrag
   >
-    <button (click)="removeClick(i)">Remove Card</button>
-    <img class="card zoom" width="200px" [src]="card.image_uris?.normal" />
+    <div>
+      <button (click)="removeClick(i)">Remove Card</button>
+    </div>
+    <div>
+      <img class="card zoom" width="200px" [src]="card.image_uris?.normal" />
+    </div>
   </div>
 </div>

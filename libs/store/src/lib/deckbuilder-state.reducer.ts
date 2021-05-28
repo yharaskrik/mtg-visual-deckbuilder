@@ -90,7 +90,7 @@ const reducer = createReducer<DeckbuilderState>(
     const deck: Deck = {
       cards: createColumns(),
       deckId: new Date().getTime().toString(),
-      name: new Date().getTime().toString(),
+      name: 'Deck ' + (Object.values(state.decks).length + 1).toString(),
     };
     return mergeDeckIn(deck, {
       ...state,

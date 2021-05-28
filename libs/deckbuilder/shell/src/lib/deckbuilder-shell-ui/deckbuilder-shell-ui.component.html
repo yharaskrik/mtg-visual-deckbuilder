@@ -3,7 +3,7 @@
     class="list-container"
     *ngFor="let cardList of cards; let column = index"
   >
-    <div>Column Number {{ column }}</div>
+    <div>Mana Value {{ column }}</div>
     <mtg-card-column
       [cards]="cardList"
       [column]="column"
