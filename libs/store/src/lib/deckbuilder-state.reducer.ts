@@ -104,10 +104,11 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck: Deck = getSelectedDeck(state.selectedDeck, state);
 
-    deck.cards = [
-      [...(deck.cards.length ? deck.cards[0] : []), card],
-      ...deck.cards.slice(1),
-    ];
+    deck.cards = [...deck.cards];
+
+    deck.cards[card.cmc] = [...deck.cards[card.cmc]];
+
+    deck.cards[card.cmc].push(card);
 
     return mergeDeckIn(deck, state);
   }),

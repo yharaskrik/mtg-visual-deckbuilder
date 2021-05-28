@@ -9,6 +9,17 @@ Select Deck
 <div *ngIf="deck$ | ngrxPush as deck">
   <input [ngModel]="deck.name" (ngModelChange)="updateDeck({ name: $event })" />
 </div>
+<div *ngIf="avgManaValue$ | ngrxPush as avgManaValue">
+  Average Mana Value: {{ avgManaValue }}
+</div>
+<div *ngIf="totalCards$ | ngrxPush as totalCards">
+  Total Cards: {{ totalCards }}
+</div>
+<div *ngIf="ratios$ | ngrxPush as ratios">
+  <div *ngFor="let ratio of ratios">
+    {{ ratio }}
+  </div>
+</div>
 <mtg-card-search></mtg-card-search>
 <mtg-deckbuilder-shell-ui
   [cards]="cards$ | ngrxPush"

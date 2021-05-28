@@ -18,6 +18,12 @@ export class DeckbuilderShellComponent {
 
   deck$ = this.deckbuilderStateFacade.selectDeck();
 
+  avgManaValue$ = this.deckbuilderStateFacade.selectAverageManaValue();
+
+  totalCards$ = this.deckbuilderStateFacade.selectTotalCards();
+
+  ratios$ = this.deckbuilderStateFacade.selectColourRatios();
+
   constructor(private deckbuilderStateFacade: DeckbuilderStateFacade) {}
 
   moveColumn($event: MoveColumnEvent): void {

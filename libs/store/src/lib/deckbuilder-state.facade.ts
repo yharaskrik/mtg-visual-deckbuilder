@@ -13,15 +13,22 @@ import {
   updateDeck,
 } from './deckbuilder-state.actions';
 import {
+  selectAverageManaValue,
+  selectColourRatios,
   selectDeck,
   selectDeckCards,
   selectDeckList,
+  selectTotalCards,
 } from './deckbuilder-state.selectors';
 import { Deck, MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
 
 @Injectable({ providedIn: 'root' })
 export class DeckbuilderStateFacade {
   constructor(private _store: Store) {}
+
+  selectColourRatios(): Observable<string[]> {
+    return this._store.pipe(select(selectColourRatios));
+  }
 
   selectDeckCards(): Observable<Card[][] | undefined> {
     return this._store.pipe(select(selectDeckCards));
@@ -33,6 +40,14 @@ export class DeckbuilderStateFacade {
 
   selectDeck(): Observable<Deck | undefined> {
     return this._store.pipe(select(selectDeck));
+  }
+
+  selectTotalCards(): Observable<number> {
+    return this._store.pipe(select(selectTotalCards));
+  }
+
+  selectAverageManaValue(): Observable<number> {
+    return this._store.pipe(select(selectAverageManaValue));
   }
 
   moveInColumn($event: MoveInColumnEvent): void {
