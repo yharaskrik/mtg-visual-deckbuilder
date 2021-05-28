@@ -9,12 +9,15 @@
   "affected": {
     "defaultBase": "master"
   },
-  "npmScope": "mtg-visual-deckbuilder",
+  "npmScope": "mtg",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "ZTA5MTM3N2MtNDNhYy00ODkxLWFmYzYtZTZkMTFjMzIyNDQyfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
@@ -22,9 +25,17 @@
     "deckbuilder": {
       "tags": []
     },
-    "deckbuilder-e2e": {
-      "tags": [],
-      "implicitDependencies": ["deckbuilder"]
+    "deckbuilder-shell": {
+      "tags": []
+    },
+    "scryfall-api": {
+      "tags": []
+    },
+    "card-search": {
+      "tags": []
+    },
+    "store": {
+      "tags": []
     }
   }
 }

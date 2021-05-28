@@ -1,0 +1,13 @@
+<div cdkDropListGroup>
+  <div
+    class="list-container"
+    *ngFor="let cardList of cards; let column = index"
+  >
+    <div>Column Number {{ column }}</div>
+    <mtg-card-column
+      [cards]="cardList"
+      [column]="column"
+      (drop)="drop($event)"
+    ></mtg-card-column>
+  </div>
+</div>

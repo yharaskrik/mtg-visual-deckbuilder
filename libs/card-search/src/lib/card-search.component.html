@@ -1,0 +1,7 @@
+<mtg-card-search-ui
+  [results]="results$ | ngrxPush"
+  [resultsLoading]="loading$ | ngrxPush"
+  (addCard)="addCard($event)"
+  (queryCards)="search($event)"
+>
+</mtg-card-search-ui>

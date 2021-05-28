@@ -14,7 +14,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "mtgVisualDeckbuilder",
+            "prefix": "mtg",
             "style": "camelCase"
           }
         ],
@@ -22,7 +22,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "mtg-visual-deckbuilder",
+            "prefix": "mtg",
             "style": "kebab-case"
           }
         ]

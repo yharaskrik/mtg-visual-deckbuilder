@@ -1,0 +1,15 @@
+<div
+  cdkDropList
+  [cdkDropListData]="{ items: cards, index: column }"
+  class="list"
+  (cdkDropListDropped)="drop.emit($event)"
+>
+  <div
+    class="card-box"
+    [style.zIndex]="i"
+    *ngFor="let card of cards; let i = index"
+    cdkDrag
+  >
+    <img class="card" width="200px" [src]="card.image_uris?.small" />
+  </div>
+</div>

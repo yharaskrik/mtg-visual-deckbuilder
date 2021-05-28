@@ -1,7 +1,9 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "analytics": "074ce3e4-aa21-4f3c-ad1b-9139d1fce05b",
+    "defaultCollection": "@nrwl/angular",
+    "packageManager": "yarn"
   },
   "defaultProject": "deckbuilder",
   "schematics": {
@@ -36,7 +38,7 @@
       "projectType": "application",
       "root": "apps/deckbuilder",
       "sourceRoot": "apps/deckbuilder/src",
-      "prefix": "mtg-visual-deckbuilder",
+      "prefix": "mtg",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -124,28 +126,162 @@
         }
       }
     },
-    "deckbuilder-e2e": {
-      "root": "apps/deckbuilder-e2e",
-      "sourceRoot": "apps/deckbuilder-e2e/src",
-      "projectType": "application",
+    "deckbuilder-shell": {
+      "projectType": "library",
+      "root": "libs/deckbuilder/shell",
+      "sourceRoot": "libs/deckbuilder/shell/src",
+      "prefix": "mtg",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
           "options": {
-            "cypressConfig": "apps/deckbuilder-e2e/cypress.json",
-            "tsConfig": "apps/deckbuilder-e2e/tsconfig.e2e.json",
-            "devServerTarget": "deckbuilder:serve:development"
+            "project": "libs/deckbuilder/shell/ng-package.json"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "deckbuilder:serve:production"
+              "tsConfig": "libs/deckbuilder/shell/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/deckbuilder/shell/tsconfig.lib.json"
             }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/deckbuilder/shell"],
+          "options": {
+            "jestConfig": "libs/deckbuilder/shell/jest.config.js",
+            "passWithNoTests": true
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/deckbuilder-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "libs/deckbuilder/shell/src/**/*.ts",
+              "libs/deckbuilder/shell/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "scryfall-api": {
+      "projectType": "library",
+      "root": "libs/scryfall-api",
+      "sourceRoot": "libs/scryfall-api/src",
+      "prefix": "mtg",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "project": "libs/scryfall-api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/scryfall-api/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/scryfall-api/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/scryfall-api"],
+          "options": {
+            "jestConfig": "libs/scryfall-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/scryfall-api/src/**/*.ts",
+              "libs/scryfall-api/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "card-search": {
+      "projectType": "library",
+      "root": "libs/card-search",
+      "sourceRoot": "libs/card-search/src",
+      "prefix": "mtg",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "project": "libs/card-search/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/card-search/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/card-search/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/card-search"],
+          "options": {
+            "jestConfig": "libs/card-search/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/card-search/src/**/*.ts",
+              "libs/card-search/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "store": {
+      "projectType": "library",
+      "root": "libs/store",
+      "sourceRoot": "libs/store/src",
+      "prefix": "mtg",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "project": "libs/store/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/store/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/store/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/store"],
+          "options": {
+            "jestConfig": "libs/store/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/store/src/**/*.ts",
+              "libs/store/src/**/*.html"
+            ]
           }
         }
       }

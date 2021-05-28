@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@mtg/deckbuilder/shell": ["libs/deckbuilder/shell/src/index.ts"],
+      "@mtg/scryfall-api": ["libs/scryfall-api/src/index.ts"],
+      "@mtg/card-search": ["libs/card-search/src/index.ts"],
+      "@mtg/store": ["libs/store/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,14 @@
+<ng-select
+  #cardSelect
+  [loading]="resultsLoading"
+  [items]="results"
+  bindLabel="name"
+  bindValue="id"
+  placeholder="Search for a card"
+  [virtualScroll]="true"
+  [closeOnSelect]="true"
+  [markFirst]="true"
+  [clearSearchOnAdd]="true"
+  (change)="cardSelected($event)"
+  (search)="searchCards($event)"
+></ng-select>

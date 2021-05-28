@@ -1,0 +1,7 @@
+<button (click)="addNewDeck()">Add new Deck</button>
+<mtg-card-search></mtg-card-search>
+<mtg-deckbuilder-shell-ui
+  [cards]="cards$ | ngrxPush"
+  (moveColumn)="moveColumn($event)"
+  (moveInColumn)="moveInColumn($event)"
+></mtg-deckbuilder-shell-ui>
