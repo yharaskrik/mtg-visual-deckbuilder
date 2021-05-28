@@ -7,6 +7,7 @@ import {
   addNewDeck,
   moveColumn,
   moveInColumn,
+  removeCard,
 } from './deckbuilder-state.actions';
 import { selectDeckCards } from './deckbuilder-state.selectors';
 import { MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
@@ -33,5 +34,9 @@ export class DeckbuilderStateFacade {
 
   addDeck(): void {
     this._store.dispatch(addNewDeck());
+  }
+
+  removeCard($event: { column: number; index: number }): void {
+    this._store.dispatch(removeCard($event));
   }
 }

@@ -8,6 +8,7 @@
       [cards]="cardList"
       [column]="column"
       (drop)="drop($event)"
+      (removeCard)="removeClick(column, $event)"
     ></mtg-card-column>
   </div>
 </div>

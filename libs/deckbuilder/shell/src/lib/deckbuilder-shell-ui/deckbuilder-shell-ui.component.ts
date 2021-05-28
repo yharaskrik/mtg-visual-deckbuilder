@@ -17,6 +17,11 @@ export class DeckbuilderShellUiComponent {
   @Output()
   moveInColumn: EventEmitter<MoveInColumnEvent> = new EventEmitter<MoveInColumnEvent>();
 
+  @Output() removeCard: EventEmitter<{
+    column: number;
+    index: number;
+  }> = new EventEmitter<{ column: number; index: number }>();
+
   drop(event: CdkDragDrop<{ items: Card[]; index: number }>) {
     if (event.previousContainer === event.container) {
       this.moveInColumn.emit({
@@ -32,5 +37,9 @@ export class DeckbuilderShellUiComponent {
         currentColumn: event.container.data.index,
       });
     }
+  }
+
+  removeClick(column: number, index: number): void {
+    this.removeCard.emit({ column, index });
   }
 }

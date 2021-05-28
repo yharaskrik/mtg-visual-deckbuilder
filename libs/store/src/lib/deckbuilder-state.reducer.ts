@@ -5,6 +5,7 @@ import {
   addNewDeck,
   moveColumn,
   moveInColumn,
+  removeCard,
 } from './deckbuilder-state.actions';
 import {
   Deck,
@@ -29,6 +30,21 @@ function mergeDeckIn(deck: Deck, state: DeckbuilderState): DeckbuilderState {
 
 const reducer = createReducer<DeckbuilderState>(
   initialDeckbuilderState,
+  on(removeCard, (state, { column, index }) => {
+    if (!state.selectedDeck) {
+      return state;
+    }
+
+    const deck = getSelectedDeck(state.selectedDeck, state);
+
+    const newColumn = deck.cards[column].slice();
+    newColumn.splice(index, 1);
+
+    deck.cards = deck.cards.slice();
+    deck.cards[column] = newColumn;
+
+    return mergeDeckIn(deck, state);
+  }),
   on(addNewDeck, (state) => {
     const deck: Deck = {
       cards: createColumns(),

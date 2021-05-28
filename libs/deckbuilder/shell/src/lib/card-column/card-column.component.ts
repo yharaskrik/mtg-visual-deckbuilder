@@ -16,9 +16,16 @@ export class CardColumnComponent {
     CdkDragDrop<{ items: Card[]; index: number }>
   >;
 
+  @Output() readonly removeCard: EventEmitter<number>;
+
   constructor() {
+    this.removeCard = new EventEmitter<number>();
     this.drop = new EventEmitter<
       CdkDragDrop<{ items: Card[]; index: number }>
     >();
+  }
+
+  removeClick(index: number): void {
+    this.removeCard.emit(index);
   }
 }

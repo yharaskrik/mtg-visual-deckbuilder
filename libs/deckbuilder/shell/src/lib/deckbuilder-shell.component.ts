@@ -26,4 +26,8 @@ export class DeckbuilderShellComponent {
   addNewDeck(): void {
     this.deckbuilderStateFacade.addDeck();
   }
+
+  removeCard($event: { column: number; index: number }): void {
+    this.deckbuilderStateFacade.removeCard($event);
+  }
 }
