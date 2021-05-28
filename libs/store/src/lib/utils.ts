@@ -34,6 +34,10 @@ export function emptyColourTotal(): ColourTotal {
   };
 }
 
+/**
+ * Optimize this by memoizing per column
+ * @param card
+ */
 export function calcCardsColours(card: Card): ColourTotal {
   const totals = emptyColourTotal();
 
