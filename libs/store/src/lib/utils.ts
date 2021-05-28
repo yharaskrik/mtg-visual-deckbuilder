@@ -1,4 +1,5 @@
 import { Card } from '@mtg/scryfall-api';
+import memoizee from 'memoizee';
 
 export type Colours = 'white' | 'red' | 'green' | 'blue' | 'black';
 
@@ -34,20 +35,37 @@ export function emptyColourTotal(): ColourTotal {
   };
 }
 
+export function joinColourMap(map1: ColourTotal, map2: ColourTotal): void {
+  colours.forEach((colour) => (map1[colour] += map2[colour]));
+}
+
 /**
  * Optimize this by memoizing per column
- * @param card
  */
-export function calcCardsColours(card: Card): ColourTotal {
+export const calcCardsColours = memoizee(function (
+  manaCost: string | undefined | null
+): ColourTotal {
   const totals = emptyColourTotal();
 
   colours.forEach((colour) => {
     totals[colour] += manaCosts[colour].reduce((total, symbol) => {
-      const matches =
-        (card.mana_cost ?? '').match(new RegExp(symbol, 'g')) ?? [];
+      const matches = (manaCost ?? '').match(new RegExp(symbol, 'g')) ?? [];
       return total + matches.length;
     }, 0);
   });
 
   return totals;
-}
+});
+
+export const calcColumnColours = memoizee(function (
+  cards: Card[]
+): ColourTotal {
+  const colourTotals: ColourTotal = emptyColourTotal();
+  cards.forEach((card) => {
+    const total = calcCardsColours(card.mana_cost);
+
+    colours.forEach((colour) => (colourTotals[colour] += total[colour]));
+  });
+
+  return colourTotals;
+});

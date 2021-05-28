@@ -7,10 +7,10 @@ import {
   initialDeckbuilderState,
 } from './deckbuilder.state';
 import {
-  calcCardsColours,
-  colours,
+  calcColumnColours,
   ColourTotal,
   emptyColourTotal,
+  joinColourMap,
 } from './utils';
 
 export const selectDeckbuilderState = createFeatureSelector<DeckbuilderState>(
@@ -55,14 +55,12 @@ export const selectAverageManaValue = createSelector(
 
 export const selectColourRatios = createSelector(
   selectTotalCards,
-  selectCardList,
-  (total, cards: Card[]) => {
+  selectDeckCards,
+  (total, columns: Card[][]) => {
     const colourTotals: ColourTotal = emptyColourTotal();
 
-    cards.forEach((card) => {
-      const total = calcCardsColours(card);
-
-      colours.forEach((colour) => (colourTotals[colour] += total[colour]));
+    columns.forEach((cards: Card[]) => {
+      joinColourMap(colourTotals, calcColumnColours(cards));
     });
 
     const totalColourSymbols = Object.values(colourTotals).reduce(

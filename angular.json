@@ -43,6 +43,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["memoizee"],
             "outputPath": "dist/apps/deckbuilder",
             "index": "apps/deckbuilder/src/index.html",
             "main": "apps/deckbuilder/src/main.ts",
