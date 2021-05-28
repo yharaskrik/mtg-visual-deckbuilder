@@ -348,6 +348,13 @@
   dependencies:
     tslib "^2.1.0"
 
+"@angular/service-worker@12.0.0":
+  version "12.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-12.0.0.tgz#92a5df01d152433db6473d27175dbd10aeaaef53"
+  integrity sha512-Y+JcNNRGQiFTH3DLL2ZGjedmCpej4khSYxAUjmsuvpGEtL/5kn/OPfQtQrRdhs/Cfaxro41VrFHjSPDU+3oaFA==
+  dependencies:
+    tslib "^2.1.0"
+
 "@apidevtools/json-schema-ref-parser@^9.0.3":
   version "9.0.7"
   resolved "https://registry.yarnpkg.com/@apidevtools/json-schema-ref-parser/-/json-schema-ref-parser-9.0.7.tgz#64aa7f5b34e43d74ea9e408b90ddfba02050dde3"

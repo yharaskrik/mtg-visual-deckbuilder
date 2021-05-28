@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Card, ScryfallApiService } from '@mtg/scryfall-api';
 import { ComponentStore } from '@ngrx/component-store';
-import { Observable } from 'rxjs';
-import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, debounceTime, switchMap, tap } from 'rxjs/operators';
 
 export interface DeckbuilderShellState {
   loading: boolean;
@@ -28,19 +28,26 @@ export class CardSearchStore extends ComponentStore<DeckbuilderShellState> {
     query$.pipe(
       tap(() => this.patchState({ loading: true })),
       debounceTime(500),
-      switchMap((query) =>
-        this.scryfallApiService.search(query).pipe(
-          tap((response) => {
-            this.patchState({
-              has_more: response.has_more,
-              next_page: response.next_page,
-              results: response.data,
-            });
+      switchMap((query) => {
+        if (query) {
+          return this.scryfallApiService.search(query).pipe(
+            tap((response) => {
+              this.patchState({
+                has_more: response.has_more,
+                next_page: response.next_page,
+                results: response.data,
+              });
 
-            this.patchState({ loading: false });
-          })
-        )
-      )
+              this.patchState({ loading: false });
+            }),
+            catchError(() => EMPTY)
+          );
+        }
+
+        this.patchState({ loading: false, results: [] });
+
+        return EMPTY;
+      })
     )
   );
 }

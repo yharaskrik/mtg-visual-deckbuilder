@@ -51,10 +51,13 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "apps/deckbuilder/src/favicon.ico",
-              "apps/deckbuilder/src/assets"
+              "apps/deckbuilder/src/assets",
+              "apps/deckbuilder/src/manifest.webmanifest"
             ],
             "styles": ["apps/deckbuilder/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "apps/deckbuilder/ngsw-config.json"
           },
           "configurations": {
             "production": {
