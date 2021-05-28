@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "mtg-visual-deckbuilder": {
+      "hosting": {
+        "deckbuilder": [
+          "mtg-visual-deckbuilder"
+        ]
+      }
+    }
+  }
+}

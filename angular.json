@@ -126,6 +126,10 @@
             "jestConfig": "apps/deckbuilder/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
