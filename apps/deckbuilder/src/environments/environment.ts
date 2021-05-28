@@ -4,6 +4,15 @@
 
 export const environment = {
   production: false,
+  firebase: {
+    apiKey: 'AIzaSyDk8DJwqJn-79RzTcnC9CAMV2UD7z_VzP4',
+    authDomain: 'mtg-visual-deckbuilder.firebaseapp.com',
+    projectId: 'mtg-visual-deckbuilder',
+    storageBucket: 'mtg-visual-deckbuilder.appspot.com',
+    messagingSenderId: '541938532504',
+    appId: '1:541938532504:web:ae6141067788919359d0ed',
+    measurementId: 'G-9SYDK50XBK',
+  },
 };
 
 /*
