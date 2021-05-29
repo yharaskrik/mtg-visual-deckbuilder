@@ -14,7 +14,7 @@
       <button (click)="removeClick(i)">Remove Card</button>
     </div>
     <div>
-      <img class="card zoom" width="200px" [src]="card.image_uris?.normal" />
+      <img class="card" width="200px" [src]="card.image_uris?.normal" [alt]="card.name" />
     </div>
   </div>
 </div>
