@@ -1,14 +1,14 @@
 <div cdkDropListGroup>
   <div
     class="list-container"
-    *ngFor="let cardList of cards; let column = index"
+    *ngFor="let column of deck.columns; let i = index"
   >
-    <div>Mana Value {{ column }}</div>
+    <div>{{ column.name }}</div>
     <mtg-card-column
-      [cards]="cardList"
-      [column]="column"
+      [cards]="cards[i]"
+      [column]="i"
       (drop)="drop($event)"
-      (removeCard)="removeClick(column, $event)"
+      (removeCard)="removeClick(i, $event)"
     ></mtg-card-column>
   </div>
 </div>

@@ -4,6 +4,7 @@ import {
   DeckbuilderStateFacade,
   MoveColumnEvent,
   MoveInColumnEvent,
+  UpdateDeck,
 } from '@mtg/store';
 
 @Component({
@@ -52,7 +53,7 @@ export class DeckbuilderShellComponent {
     this.deckbuilderStateFacade.chooseDeck(($event.target as any).value);
   }
 
-  updateDeck(update: Omit<Deck, 'deckId' | 'cards'>): void {
+  updateDeck(update: UpdateDeck): void {
     this.deckbuilderStateFacade.updateDeck(update);
   }
 

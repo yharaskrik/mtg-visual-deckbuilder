@@ -1,4 +1,5 @@
 import { Card } from '@mtg/scryfall-api';
+import { DeckInfo } from '@mtg/store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { createChildSelectors } from 'ngrx-child-selectors';
 import {
@@ -30,9 +31,25 @@ export const selectDeckList = createSelector(selectDecks, (decks) =>
 export const selectDeck = createSelector(
   selectDecks,
   selectSelectedDeck,
-  (decks, selectSelectedDeck) =>
-    selectSelectedDeck ? decks[selectSelectedDeck] : undefined
+  (decks, selectSelectedDeck) => {
+    if (selectSelectedDeck && decks[selectSelectedDeck]) {
+      return decks[selectSelectedDeck];
+    }
+
+    return undefined;
+  }
 );
+
+export const selectDeckInfo = createSelector(selectDeck, (deck) => {
+  if (deck) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { cards, ...deckInfo } = deck;
+
+    return deckInfo as DeckInfo;
+  }
+
+  return undefined;
+});
 
 export const selectDeckCards = createSelector(
   selectDeck,

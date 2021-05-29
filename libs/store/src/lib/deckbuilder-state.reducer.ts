@@ -1,8 +1,10 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { Deck } from '@mtg/store';
 import { Action, createReducer, on } from '@ngrx/store';
 import {
   addCard,
   addNewDeck,
+  changeSort,
   chooseDeck,
   moveColumn,
   moveInColumn,
@@ -10,11 +12,7 @@ import {
   sortCards,
   updateDeck,
 } from './deckbuilder-state.actions';
-import {
-  Deck,
-  DeckbuilderState,
-  initialDeckbuilderState,
-} from './deckbuilder.state';
+import { DeckbuilderState, initialDeckbuilderState } from './deckbuilder.state';
 import { createColumns, sortDeck } from './utils';
 
 function getSelectedDeck(deckId: string, state: DeckbuilderState): Deck {
@@ -33,6 +31,46 @@ function mergeDeckIn(deck: Deck, state: DeckbuilderState): DeckbuilderState {
 
 const reducer = createReducer<DeckbuilderState>(
   initialDeckbuilderState,
+  on(changeSort, (state, { sortBy }) => {
+    if (!state.selectedDeck) {
+      return state;
+    }
+
+    const deck = getSelectedDeck(state.selectedDeck, state);
+
+    switch (sortBy) {
+      case 'cmc':
+        /**
+         * If the sort is being changed to cmc then just update sort order as the effect
+         * will handle dispatching the sort action which will update the columns
+         */
+        return mergeDeckIn(
+          {
+            ...deck,
+            sortBy,
+          },
+          state
+        );
+      case 'freeform': {
+        const columns = deck.columns.slice();
+        const cards = deck.cards.slice();
+
+        columns.unshift({ name: 'Maybeboard' });
+        cards.unshift([]);
+
+        return mergeDeckIn(
+          {
+            ...deck,
+            columns,
+            cards,
+          },
+          state
+        );
+      }
+    }
+
+    return state;
+  }),
   on(updateDeck, (state, { update }) =>
     state.selectedDeck
       ? mergeDeckIn(
@@ -75,10 +113,13 @@ const reducer = createReducer<DeckbuilderState>(
     return mergeDeckIn(deck, state);
   }),
   on(addNewDeck, (state) => {
+    const cards = createColumns();
     const deck: Deck = {
-      cards: createColumns(),
+      cards,
       deckId: new Date().getTime().toString(),
       name: 'Deck ' + (Object.values(state.decks).length + 1).toString(),
+      columns: cards.map((value, index) => ({ name: `Mana Value ${index}` })),
+      sortBy: 'cmc',
     };
     return mergeDeckIn(deck, {
       ...state,

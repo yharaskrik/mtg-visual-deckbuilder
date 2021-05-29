@@ -12,6 +12,7 @@ import {
   DeckbuilderShellModule,
 } from '@mtg/deckbuilder/shell';
 import { DECKBUILDER_STATE_KEY } from '@mtg/store';
+import { EffectsModule } from '@ngrx/effects';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { localStorageSync } from 'ngrx-store-localstorage';
@@ -51,6 +52,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
         metaReducers,
       }
     ),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
     }),

@@ -21,12 +21,18 @@ Select Deck
   </div>
 </div>
 <mtg-card-search></mtg-card-search>
-<mtg-deckbuilder-shell-ui
-  [cards]="cards$ | ngrxPush"
-  (moveColumn)="moveColumn($event)"
-  (moveInColumn)="moveInColumn($event)"
-  (removeCard)="removeCard($event)"
-></mtg-deckbuilder-shell-ui>
-<div class="graph">
-  <mtg-sparkline-chart [points]="points$ | ngrxPush"></mtg-sparkline-chart>
-</div>
+<ng-container *ngIf="deck$ | ngrxPush as deck">
+  <mtg-deckbuilder-shell-ui
+    [deck]="deck"
+    [cards]="cards$ | ngrxPush"
+    (moveColumn)="moveColumn($event)"
+    (moveInColumn)="moveInColumn($event)"
+    (removeCard)="removeCard($event)"
+  ></mtg-deckbuilder-shell-ui>
+  <div class="graph" *ngIf="totalCards$ | ngrxPush as totalCards">
+    <mtg-sparkline-chart
+      *ngIf="totalCards > 0"
+      [points]="points$ | ngrxPush"
+    ></mtg-sparkline-chart>
+  </div>
+</ng-container>

@@ -1,6 +1,11 @@
 import { Card } from '@mtg/scryfall-api';
+import {
+  MoveColumnEvent,
+  MoveInColumnEvent,
+  SortBy,
+  UpdateDeck,
+} from '@mtg/store';
 import { createAction, props } from '@ngrx/store';
-import { Deck, MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
 
 export const moveColumn = createAction(
   '[@mtg/deckbuilder/card/move/column] Move card from one column to another',
@@ -28,7 +33,7 @@ export const chooseDeck = createAction(
 
 export const updateDeck = createAction(
   '[@mtg/deckbuilder/deck/update',
-  props<{ update: Omit<Deck, 'deckId' | 'cards'> }>()
+  props<{ update: UpdateDeck }>()
 );
 
 export const removeCard = createAction(
@@ -38,4 +43,9 @@ export const removeCard = createAction(
 
 export const sortCards = createAction(
   '[@mtg/deckbuilder/deck/sort] Sort cards in deck by cmc'
+);
+
+export const changeSort = createAction(
+  '[@mtg/deckbuilder/deck/change-sort] Change how the deck is sorted',
+  props<{ sortBy: SortBy }>()
 );

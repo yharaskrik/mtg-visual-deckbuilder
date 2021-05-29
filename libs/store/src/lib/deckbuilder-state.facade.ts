@@ -17,12 +17,18 @@ import {
   selectAverageManaValue,
   selectColourRatios,
   selectCurve,
-  selectDeck,
   selectDeckCards,
+  selectDeckInfo,
   selectDeckList,
   selectTotalCards,
 } from './deckbuilder-state.selectors';
-import { Deck, MoveColumnEvent, MoveInColumnEvent } from './deckbuilder.state';
+import {
+  Deck,
+  DeckInfo,
+  MoveColumnEvent,
+  MoveInColumnEvent,
+  UpdateDeck,
+} from './types';
 
 @Injectable({ providedIn: 'root' })
 export class DeckbuilderStateFacade {
@@ -44,8 +50,8 @@ export class DeckbuilderStateFacade {
     return this._store.pipe(select(selectDeckList));
   }
 
-  selectDeck(): Observable<Deck | undefined> {
-    return this._store.pipe(select(selectDeck));
+  selectDeck(): Observable<DeckInfo | undefined> {
+    return this._store.pipe(select(selectDeckInfo));
   }
 
   selectTotalCards(): Observable<number> {
@@ -84,7 +90,7 @@ export class DeckbuilderStateFacade {
     this._store.dispatch(chooseDeck({ deckId }));
   }
 
-  updateDeck(update: Omit<Deck, 'deckId' | 'cards'>): void {
+  updateDeck(update: UpdateDeck): void {
     this._store.dispatch(updateDeck({ update }));
   }
 }
