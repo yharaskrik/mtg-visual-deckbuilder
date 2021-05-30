@@ -3,31 +3,16 @@
 
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
-
 jobs:
-  build:
+  build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          fetch-depth: 0
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: git fetch --no-tags --prune --depth=5 origin master
       - run: yarn install --frozen-lockfile
-        env:
-          CI: true
-      - run: yarn affected:build --base=origin/master --parallel --configuration=production
+      - run: yarn ng build --configuration=production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MTG_VISUAL_DECKBUILDER }}'
           projectId: mtg-visual-deckbuilder
-
