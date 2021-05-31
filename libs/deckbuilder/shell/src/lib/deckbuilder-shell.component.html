@@ -4,10 +4,28 @@
   </div>
   <div class="playmat p-sm wireframe">Playmat</div>
   <div class="sidebar p-sm wireframe">
-    <button (click)="addNewDeck()">Add new Deck</button>
-    <button (click)="sortCards()">Sort Cards</button>
+    <button
+      mat-raised-button
+      color="primary"
+      class="m-b-sm"
+      (click)="addNewDeck()"
+    >
+      Add new Deck
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      class="m-b-sm"
+      (click)="sortCards()"
+    >
+      Sort Cards
+    </button>
     Select Deck
-    <select *ngrxLet="decks$; let decks" (change)="chooseDeck($event)">
+    <select
+      *ngrxLet="decks$; let decks"
+      class="m-b-sm"
+      (change)="chooseDeck($event)"
+    >
       <option
         *ngFor="let deck of decks; trackBy: trackDeck"
         [value]="deck.deckId"

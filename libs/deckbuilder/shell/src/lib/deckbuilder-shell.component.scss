@@ -27,6 +27,8 @@
   grid-area: sidebar;
   overflow-y: scroll;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .playmat {
@@ -45,4 +47,8 @@
 
 .p-sm {
   padding: 1rem;
+}
+
+.m-b-sm {
+  margin-bottom: 0.5rem;
 }
