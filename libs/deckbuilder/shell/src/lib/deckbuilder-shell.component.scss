@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .graph {
   display: inline-block;
   margin: 0 auto;
@@ -7,13 +11,12 @@
 
 .frame {
   display: grid;
-  min-height: 100vh;
+  height: 100vh;
   grid-template-columns: 1fr 16rem;
   grid-template-rows: repeat(auto);
   grid-template-areas:
     'top top'
     'playmat sidebar';
-  column-gap: 0.5rem;
 }
 
 .top-bar {
@@ -22,10 +25,14 @@
 
 .sidebar {
   grid-area: sidebar;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .playmat {
   grid-area: playmat;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .deck-select {
