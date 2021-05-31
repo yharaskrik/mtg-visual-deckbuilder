@@ -4,3 +4,39 @@
   width: auto;
   border-radius: 2px;
 }
+
+.frame {
+  display: grid;
+  min-height: 100vh;
+  grid-template-columns: 1fr 16rem;
+  grid-template-rows: repeat(auto);
+  grid-template-areas:
+    'top top'
+    'playmat sidebar';
+  column-gap: 0.5rem;
+}
+
+.top-bar {
+  grid-area: top;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.playmat {
+  grid-area: playmat;
+}
+
+.deck-select {
+  position: absolute;
+  left: -100%;
+}
+
+.wireframe {
+  border: 1px dashed #333;
+}
+
+.p-sm {
+  padding: 1rem;
+}
