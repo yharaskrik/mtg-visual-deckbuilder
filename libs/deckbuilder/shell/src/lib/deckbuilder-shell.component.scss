@@ -31,8 +31,7 @@
 
 .playmat {
   grid-area: playmat;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: scroll;
 }
 
 .deck-select {
