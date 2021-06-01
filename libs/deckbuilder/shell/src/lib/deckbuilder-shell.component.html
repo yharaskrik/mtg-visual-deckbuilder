@@ -1,38 +1,72 @@
-<button (click)="addNewDeck()">Add new Deck</button>
-<button (click)="sortCards()">Sort Cards</button>
-Select Deck
-<select *ngrxLet="decks$; let decks" (change)="chooseDeck($event)">
-  <option *ngFor="let deck of decks; trackBy: trackDeck" [value]="deck.deckId">
-    {{ deck.name }}
-  </option>
-</select>
-<div *ngIf="deck$ | ngrxPush as deck">
-  <input [ngModel]="deck.name" (ngModelChange)="updateDeck({ name: $event })" />
-</div>
-<div *ngIf="avgManaValue$ | ngrxPush as avgManaValue">
-  Average Mana Value: {{ avgManaValue }}
-</div>
-<div *ngIf="totalCards$ | ngrxPush as totalCards">
-  Total Cards: {{ totalCards }}
-</div>
-<div *ngIf="ratios$ | ngrxPush as ratios">
-  <div *ngFor="let ratio of ratios">
-    {{ ratio }}
+<div class="frame">
+  <div class="top-bar p-sm wireframe">
+    <i class="hamburger">Hamburger</i>
+  </div>
+  <div class="playmat p-sm wireframe">Playmat</div>
+  <div class="sidebar p-sm wireframe">
+    <button
+      mat-raised-button
+      color="primary"
+      class="m-b-sm"
+      (click)="addNewDeck()"
+    >
+      Add new Deck
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      class="m-b-sm"
+      (click)="sortCards()"
+    >
+      Sort Cards
+    </button>
+    Select Deck
+    <select
+      *ngrxLet="decks$; let decks"
+      class="m-b-sm"
+      (change)="chooseDeck($event)"
+    >
+      <option
+        *ngFor="let deck of decks; trackBy: trackDeck"
+        [value]="deck.deckId"
+      >
+        {{ deck.name }}
+      </option>
+    </select>
+    <div *ngIf="deck$ | ngrxPush as deck">
+      <input
+        [ngModel]="deck.name"
+        (ngModelChange)="updateDeck({ name: $event })"
+      />
+    </div>
+    <div *ngIf="avgManaValue$ | ngrxPush as avgManaValue">
+      Average Mana Value: {{ avgManaValue }}
+    </div>
+    <div *ngIf="totalCards$ | ngrxPush as totalCards">
+      Total Cards: {{ totalCards }}
+    </div>
+    <div *ngIf="ratios$ | ngrxPush as ratios">
+      <div *ngFor="let ratio of ratios">
+        {{ ratio }}
+      </div>
+    </div>
+    <mtg-card-search></mtg-card-search>
+    <ng-container *ngIf="deck$ | ngrxPush as deck">
+      <mtg-deckbuilder-shell-ui
+        [deck]="deck"
+        [cards]="cards$ | ngrxPush"
+        (moveColumn)="moveColumn($event)"
+        (moveInColumn)="moveInColumn($event)"
+        (removeCard)="removeCard($event)"
+      ></mtg-deckbuilder-shell-ui>
+      <div class="graph" *ngIf="totalCards$ | ngrxPush as totalCards">
+        <mtg-sparkline-chart
+          *ngIf="totalCards > 0"
+          [points]="points$ | ngrxPush"
+        ></mtg-sparkline-chart>
+      </div>
+    </ng-container>
   </div>
 </div>
-<mtg-card-search></mtg-card-search>
-<ng-container *ngIf="deck$ | ngrxPush as deck">
-  <mtg-deckbuilder-shell-ui
-    [deck]="deck"
-    [cards]="cards$ | ngrxPush"
-    (moveColumn)="moveColumn($event)"
-    (moveInColumn)="moveInColumn($event)"
-    (removeCard)="removeCard($event)"
-  ></mtg-deckbuilder-shell-ui>
-  <div class="graph" *ngIf="totalCards$ | ngrxPush as totalCards">
-    <mtg-sparkline-chart
-      *ngIf="totalCards > 0"
-      [points]="points$ | ngrxPush"
-    ></mtg-sparkline-chart>
-  </div>
-</ng-container>
+
+<div class="deck-select"></div>

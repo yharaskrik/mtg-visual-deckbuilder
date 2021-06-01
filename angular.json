@@ -55,7 +55,7 @@
               "apps/deckbuilder/src/assets",
               "apps/deckbuilder/src/manifest.webmanifest"
             ],
-            "styles": ["apps/deckbuilder/src/styles.scss"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css", "apps/deckbuilder/src/styles.scss"],
             "scripts": [],
             "serviceWorker": true,
             "ngswConfigPath": "apps/deckbuilder/ngsw-config.json"

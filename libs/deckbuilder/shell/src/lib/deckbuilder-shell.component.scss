@@ -1,6 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
 .graph {
   display: inline-block;
   margin: 0 auto;
   width: auto;
   border-radius: 2px;
+}
+
+.frame {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 16rem;
+  grid-template-rows: max-content auto;
+  grid-template-areas:
+    'top top'
+    'playmat sidebar';
+}
+
+.top-bar {
+  grid-area: top;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.playmat {
+  grid-area: playmat;
+  overflow: scroll;
+}
+
+.deck-select {
+  position: absolute;
+  left: -100%;
+}
+
+.wireframe {
+  border: 1px dashed #333;
+}
+
+.p-sm {
+  padding: 1rem;
+}
+
+.m-b-sm {
+  margin-bottom: 0.5rem;
 }
