@@ -2,7 +2,24 @@
   <div class="top-bar p-sm wireframe">
     <i class="hamburger">Hamburger</i>
   </div>
-  <div class="playmat p-sm wireframe">Playmat</div>
+  <div class="playmat p-sm wireframe">
+    <ng-container *ngrxLet="deck$; let deck">
+      <mtg-deckbuilder-shell-ui
+        *ngIf="deck"
+        [deck]="deck"
+        [cards]="cards$ | ngrxPush"
+        (moveColumn)="moveColumn($event)"
+        (moveInColumn)="moveInColumn($event)"
+        (removeCard)="removeCard($event)"
+      ></mtg-deckbuilder-shell-ui>
+      <div class="graph" *ngrxLet="totalCards$; let totalCards">
+        <mtg-sparkline-chart
+          *ngIf="totalCards > 0"
+          [points]="points$ | ngrxPush"
+        ></mtg-sparkline-chart>
+      </div>
+    </ng-container>
+  </div>
   <div class="sidebar p-sm wireframe">
     <button
       mat-raised-button
@@ -33,39 +50,25 @@
         {{ deck.name }}
       </option>
     </select>
-    <div *ngIf="deck$ | ngrxPush as deck">
+    <div *ngrxLet="deck$; let deck">
       <input
+        *ngIf="deck"
         [ngModel]="deck.name"
         (ngModelChange)="updateDeck({ name: $event })"
       />
     </div>
-    <div *ngIf="avgManaValue$ | ngrxPush as avgManaValue">
+    <div *ngrxLet="avgManaValue$; let avgManaValue">
       Average Mana Value: {{ avgManaValue }}
     </div>
-    <div *ngIf="totalCards$ | ngrxPush as totalCards">
+    <div *ngrxLet="totalCards$; let totalCards">
       Total Cards: {{ totalCards }}
     </div>
-    <div *ngIf="ratios$ | ngrxPush as ratios">
+    <div *ngrxLet="ratios$; let ratios">
       <div *ngFor="let ratio of ratios">
         {{ ratio }}
       </div>
     </div>
     <mtg-card-search></mtg-card-search>
-    <ng-container *ngIf="deck$ | ngrxPush as deck">
-      <mtg-deckbuilder-shell-ui
-        [deck]="deck"
-        [cards]="cards$ | ngrxPush"
-        (moveColumn)="moveColumn($event)"
-        (moveInColumn)="moveInColumn($event)"
-        (removeCard)="removeCard($event)"
-      ></mtg-deckbuilder-shell-ui>
-      <div class="graph" *ngIf="totalCards$ | ngrxPush as totalCards">
-        <mtg-sparkline-chart
-          *ngIf="totalCards > 0"
-          [points]="points$ | ngrxPush"
-        ></mtg-sparkline-chart>
-      </div>
-    </ng-container>
   </div>
 </div>
 

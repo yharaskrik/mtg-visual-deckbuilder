@@ -7,14 +7,25 @@
   <div
     class="card-box"
     [style.zIndex]="i"
-    *ngFor="let card of cards; let i = index"
+    *ngFor="let card of cards; let i = index; trackBy: trackCard"
     cdkDrag
   >
     <div>
       <button (click)="removeClick(i)">Remove Card</button>
     </div>
     <div>
-      <img class="card" width="200px" [src]="card.image_uris?.normal" [alt]="card.name" />
+      <img
+        class="card"
+        width="200px"
+        [src]="
+          card.image_uris?.normal
+            ? card.image_uris?.normal
+            : card.card_faces
+            ? card.card_faces[0].image_uris?.normal
+            : ''
+        "
+        [alt]="card.name"
+      />
     </div>
   </div>
 </div>

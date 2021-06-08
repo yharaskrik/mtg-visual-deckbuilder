@@ -28,4 +28,8 @@ export class CardColumnComponent {
   removeClick(index: number): void {
     this.removeCard.emit(index);
   }
+
+  trackCard(index: number, card: Card): string {
+    return `${index}-${card.id}`;
+  }
 }

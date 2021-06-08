@@ -1,7 +1,12 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Card } from '@mtg/scryfall-api';
-import { DeckInfo, MoveColumnEvent, MoveInColumnEvent } from '@mtg/store';
+import {
+  Column,
+  DeckInfo,
+  MoveColumnEvent,
+  MoveInColumnEvent,
+} from '@mtg/store';
 
 @Component({
   selector: 'mtg-deckbuilder-shell-ui',
@@ -43,5 +48,9 @@ export class DeckbuilderShellUiComponent {
 
   removeClick(column: number, index: number): void {
     this.removeCard.emit({ column, index });
+  }
+
+  trackColumn(index: number, column: Column): string {
+    return column.name;
   }
 }
