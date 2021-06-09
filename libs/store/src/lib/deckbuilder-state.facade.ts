@@ -7,6 +7,7 @@ import {
   addCard,
   addNewDeck,
   chooseDeck,
+  exportDeck,
   moveColumn,
   moveInColumn,
   removeCard,
@@ -63,6 +64,10 @@ export class DeckbuilderStateFacade {
     return this._store.pipe(select(selectAverageManaValue));
   }
 
+  /**
+   * Actions
+   */
+
   moveInColumn($event: MoveInColumnEvent): void {
     this._store.dispatch(moveInColumn($event));
   }
@@ -93,5 +98,9 @@ export class DeckbuilderStateFacade {
 
   updateDeck(update: UpdateDeck): void {
     this._store.dispatch(updateDeck({ update }));
+  }
+
+  exportDeck(): void {
+    this._store.dispatch(exportDeck());
   }
 }

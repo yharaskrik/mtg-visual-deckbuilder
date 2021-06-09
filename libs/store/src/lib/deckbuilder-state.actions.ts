@@ -49,3 +49,7 @@ export const changeSort = createAction(
   '[@mtg/deckbuilder/deck/change-sort] Change how the deck is sorted',
   props<{ sortBy: SortBy }>()
 );
+
+export const exportDeck = createAction(
+  '[@mtg/deckbuilder/deck/export] Export deck'
+);

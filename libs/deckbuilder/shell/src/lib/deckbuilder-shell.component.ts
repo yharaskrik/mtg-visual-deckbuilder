@@ -61,4 +61,8 @@ export class DeckbuilderShellComponent {
   trackDeck(index: number, deck: Deck): string {
     return deck.deckId;
   }
+
+  exportDeck(): void {
+    this.deckbuilderStateFacade.exportDeck();
+  }
 }

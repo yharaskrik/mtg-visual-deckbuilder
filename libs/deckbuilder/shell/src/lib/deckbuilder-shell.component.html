@@ -51,6 +51,14 @@
         (ngModelChange)="updateDeck({ name: $event })"
       />
     </div>
+    <button
+      mat-raised-button
+      color="primary"
+      class="m-b-sm m-t-sm"
+      (click)="exportDeck()"
+    >
+      Export Deck
+    </button>
     <div class="container m-t-sm">
       <div>
         <strong>Statistics:</strong>
@@ -68,9 +76,12 @@
         </ol>
       </div>
       <div>
-        <div class="graph wireframe" *ngIf="points$ | ngrxPush as points">
+        <div class="graph wireframe" *ngIf="totalCards$ | ngrxPush">
           <strong>Curve:</strong>
-          <mtg-sparkline-chart [points]="points"></mtg-sparkline-chart>
+          <mtg-sparkline-chart
+            *ngIf="points$ | ngrxPush as points"
+            [points]="points"
+          ></mtg-sparkline-chart>
         </div>
       </div>
     </div>
