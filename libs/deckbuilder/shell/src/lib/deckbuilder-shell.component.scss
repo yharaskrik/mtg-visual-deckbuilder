@@ -7,6 +7,7 @@
   margin: 0 auto;
   width: auto;
   border-radius: 2px;
+  padding: 0.25rem;
 }
 
 .frame {
@@ -46,9 +47,23 @@
 }
 
 .p-sm {
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .m-b-sm {
   margin-bottom: 0.5rem;
+}
+
+.m-t-sm {
+  margin-top: 0.5rem;
+}
+
+.divider {
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
 }

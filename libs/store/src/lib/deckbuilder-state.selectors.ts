@@ -68,7 +68,9 @@ export const selectAverageManaValue = createSelector(
   selectDeckCards,
   selectTotalCards,
   (cards, total) =>
-    cards.flat().reduce((prev, cur) => prev + cur.cmc, 0) / total
+    Math.floor(
+      (cards.flat().reduce((prev, cur) => prev + cur.cmc, 0) / total) * 100
+    ) / 100
 );
 
 export const selectColourRatios = createSelector(

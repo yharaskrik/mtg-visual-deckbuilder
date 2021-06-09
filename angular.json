@@ -59,7 +59,10 @@
               "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "apps/deckbuilder/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "buildOptimizer": true,
+            "optimization": true,
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -90,15 +93,10 @@
               },
               "serviceWorker": true,
               "ngswConfigPath": "apps/deckbuilder/ngsw-config.json",
-              "buildOptimizer": true,
-              "optimization": true,
-              "aot": true,
               "statsJson": true,
               "namedChunks": true
             },
             "development": {
-              "buildOptimizer": false,
-              "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,

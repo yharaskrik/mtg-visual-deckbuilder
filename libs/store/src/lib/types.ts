@@ -4,6 +4,7 @@ export type SortBy = 'cmc' | 'freeform';
 
 export interface Column {
   name: string;
+  id: string;
 }
 
 export interface Deck {

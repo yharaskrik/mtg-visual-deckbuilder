@@ -1,6 +1,7 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Deck } from '@mtg/store';
 import { Action, createReducer, on } from '@ngrx/store';
+import { nanoid } from 'nanoid';
 import {
   addCard,
   addNewDeck,
@@ -55,7 +56,7 @@ const reducer = createReducer<DeckbuilderState>(
         const columns = deck.columns.slice();
         const cards = deck.cards.slice();
 
-        columns.unshift({ name: 'Maybeboard' });
+        columns.unshift({ name: 'Maybeboard', id: nanoid() });
         cards.unshift([]);
 
         return mergeDeckIn(
@@ -118,7 +119,10 @@ const reducer = createReducer<DeckbuilderState>(
       cards,
       deckId: new Date().getTime().toString(),
       name: 'Deck ' + (Object.values(state.decks).length + 1).toString(),
-      columns: cards.map((value, index) => ({ name: `Mana Value ${index}` })),
+      columns: cards.map((value, index) => ({
+        name: `Mana Value ${index}`,
+        id: nanoid(),
+      })),
       sortBy: 'cmc',
     };
     return mergeDeckIn(deck, {
