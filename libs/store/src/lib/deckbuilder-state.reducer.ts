@@ -1,6 +1,7 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Deck } from '@mtg/store';
 import { Action, createReducer, on } from '@ngrx/store';
+import { nanoid } from 'nanoid';
 import {
   addCard,
   addNewDeck,
@@ -53,16 +54,13 @@ const reducer = createReducer<DeckbuilderState>(
         );
       case 'freeform': {
         const columns = deck.columns.slice();
-        const cards = deck.cards.slice();
 
-        columns.unshift({ name: 'Maybeboard' });
-        cards.unshift([]);
+        columns.unshift({ name: 'Maybeboard', id: nanoid(), cards: [] });
 
         return mergeDeckIn(
           {
             ...deck,
             columns,
-            cards,
           },
           state
         );
@@ -93,7 +91,14 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck = getSelectedDeck(state.selectedDeck, state);
 
-    deck.cards = sortDeck(state.decks[state.selectedDeck].cards);
+    // deck.columns = sortDeck(state.decks[state.selectedDeck].columns);
+
+    deck.columns = sortDeck(
+      state.decks[state.selectedDeck].columns,
+      state.decks[state.selectedDeck].columns
+        .map((column) => column.cards)
+        .flat()
+    );
 
     return mergeDeckIn(deck, state);
   }),
@@ -104,21 +109,23 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck = getSelectedDeck(state.selectedDeck, state);
 
-    const newColumn = deck.cards[column].slice();
+    const newColumn = deck.columns[column].cards.slice();
     newColumn.splice(index, 1);
 
-    deck.cards = deck.cards.slice();
-    deck.cards[column] = newColumn;
+    deck.columns[column].cards = deck.columns[column].cards.slice();
 
     return mergeDeckIn(deck, state);
   }),
   on(addNewDeck, (state) => {
     const cards = createColumns();
     const deck: Deck = {
-      cards,
       deckId: new Date().getTime().toString(),
       name: 'Deck ' + (Object.values(state.decks).length + 1).toString(),
-      columns: cards.map((value, index) => ({ name: `Mana Value ${index}` })),
+      columns: cards.map((value, index) => ({
+        name: `Mana Value ${index}`,
+        id: nanoid(),
+        cards: [],
+      })),
       sortBy: 'cmc',
     };
     return mergeDeckIn(deck, {
@@ -133,11 +140,11 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck: Deck = getSelectedDeck(state.selectedDeck, state);
 
-    deck.cards = [...deck.cards];
-
-    deck.cards[card.cmc] = [...deck.cards[card.cmc]];
-
-    deck.cards[card.cmc].push(card);
+    deck.columns = deck.columns.slice();
+    deck.columns[card.cmc] = {
+      ...deck.columns[card.cmc],
+      cards: [...deck.columns[card.cmc].cards, card],
+    };
 
     return mergeDeckIn(deck, state);
   }),
@@ -148,13 +155,16 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck: Deck = getSelectedDeck(state.selectedDeck, state);
 
-    deck.cards = [...deck.cards];
+    deck.columns = deck.columns.slice();
 
-    const newColumn = [...deck.cards[column]];
+    const newColumn = deck.columns[column].cards.slice();
 
     moveItemInArray(newColumn, previousIndex, currentIndex);
 
-    deck.cards[column] = newColumn;
+    deck.columns[column] = {
+      ...deck.columns[column],
+      cards: newColumn,
+    };
 
     return mergeDeckIn(deck, state);
   }),
@@ -167,14 +177,21 @@ const reducer = createReducer<DeckbuilderState>(
 
       const deck: Deck = getSelectedDeck(state.selectedDeck, state);
 
-      const current = [...deck.cards[currentColumn]];
-      const previous = [...deck.cards[previousColumn]];
+      deck.columns = deck.columns.slice();
+
+      const current = [...deck.columns[currentColumn].cards];
+      const previous = [...deck.columns[previousColumn].cards];
 
       transferArrayItem(previous, current, previousIndex, currentIndex);
 
-      deck.cards = [...deck.cards];
-      deck.cards[currentColumn] = current;
-      deck.cards[previousColumn] = previous;
+      deck.columns[currentColumn] = {
+        ...deck.columns[currentColumn],
+        cards: current,
+      };
+      deck.columns[previousColumn] = {
+        ...deck.columns[previousColumn],
+        cards: previous,
+      };
 
       return mergeDeckIn(deck, state);
     }

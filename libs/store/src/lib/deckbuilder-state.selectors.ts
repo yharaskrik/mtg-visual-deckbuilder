@@ -1,4 +1,3 @@
-import { Card } from '@mtg/scryfall-api';
 import { DeckInfo } from '@mtg/store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { createChildSelectors } from 'ngrx-child-selectors';
@@ -43,7 +42,7 @@ export const selectDeck = createSelector(
 export const selectDeckInfo = createSelector(selectDeck, (deck) => {
   if (deck) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { cards, ...deckInfo } = deck;
+    const { columns, ...deckInfo } = deck;
 
     return deckInfo as DeckInfo;
   }
@@ -51,35 +50,37 @@ export const selectDeckInfo = createSelector(selectDeck, (deck) => {
   return undefined;
 });
 
-export const selectDeckCards = createSelector(
+export const selectDeckColumns = createSelector(
   selectDeck,
-  (deck) => deck?.cards ?? []
+  (deck) => deck?.columns ?? []
 );
 
-export const selectCardList = createSelector(selectDeckCards, (cards) =>
-  cards.flat()
+export const selectAllCards = createSelector(selectDeckColumns, (columns) =>
+  columns.map((column) => column.cards ?? []).flat()
 );
 
-export const selectTotalCards = createSelector(selectDeck, (deck) =>
-  deck ? deck.cards.flat().length : 0
+export const selectTotalCards = createSelector(selectAllCards, (cards) =>
+  cards ? cards.length : 0
 );
 
 export const selectAverageManaValue = createSelector(
-  selectDeckCards,
+  selectAllCards,
   selectTotalCards,
   (cards, total) =>
-    cards.flat().reduce((prev, cur) => prev + cur.cmc, 0) / total
+    total
+      ? Math.floor(
+          (cards.flat().reduce((prev, cur) => prev + cur.cmc, 0) / total) * 100
+        ) / 100
+      : 0
 );
 
 export const selectColourRatios = createSelector(
   selectTotalCards,
-  selectDeckCards,
-  (total, columns: Card[][]) => {
+  selectAllCards,
+  (total, cards) => {
     const colourTotals: ColourTotal = emptyColourTotal();
 
-    columns.forEach((cards: Card[]) => {
-      joinColourMap(colourTotals, calcColumnColours(cards));
-    });
+    joinColourMap(colourTotals, calcColumnColours(cards));
 
     const totalColourSymbols = Object.values(colourTotals).reduce(
       (prev, cur) => prev + cur,
@@ -97,12 +98,16 @@ export const selectColourRatios = createSelector(
   }
 );
 
-export const selectCurve = createSelector(selectDeckCards, (cards) => {
-  const sortedCards = sortDeck(cards);
+export const selectCurve = createSelector(
+  selectDeckColumns,
+  selectAllCards,
+  (columns, cards) => {
+    const sortedCards = sortDeck(columns, cards);
 
-  return sortedCards.map((column, index) => ({
-    x: index,
-    y: column.length,
-    tooltip: `${column.length} cards at ${index} mana value.`,
-  }));
-});
+    return sortedCards.map((column, index) => ({
+      x: index,
+      y: (column.cards ?? []).length,
+      tooltip: `${column.cards.length} cards at ${index} mana value.`,
+    }));
+  }
+);

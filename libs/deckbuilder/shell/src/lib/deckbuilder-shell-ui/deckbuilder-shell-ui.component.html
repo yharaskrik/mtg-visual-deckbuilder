@@ -1,11 +1,11 @@
-<div cdkDropListGroup>
+<div cdkDropListGroup class="list-container">
   <div
-    class="list-container"
-    *ngFor="let column of deck.columns; let i = index; trackColumn"
+    *ngFor="let column of columns; let i = index; trackBy: trackColumn"
+    class="column"
   >
     <div>{{ column.name }}</div>
     <mtg-card-column
-      [cards]="cards[i]"
+      [cards]="columns[i].cards"
       [column]="i"
       (drop)="drop($event)"
       (removeCard)="removeClick(i, $event)"

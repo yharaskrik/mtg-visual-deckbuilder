@@ -1,23 +1,17 @@
 <div class="frame">
   <div class="top-bar p-sm wireframe">
-    <i class="hamburger">Hamburger</i>
+    <mtg-card-search></mtg-card-search>
   </div>
   <div class="playmat p-sm wireframe">
     <ng-container *ngrxLet="deck$; let deck">
       <mtg-deckbuilder-shell-ui
         *ngIf="deck"
         [deck]="deck"
-        [cards]="cards$ | ngrxPush"
+        [columns]="cards$ | ngrxPush"
         (moveColumn)="moveColumn($event)"
         (moveInColumn)="moveInColumn($event)"
         (removeCard)="removeCard($event)"
       ></mtg-deckbuilder-shell-ui>
-      <div class="graph" *ngrxLet="totalCards$; let totalCards">
-        <mtg-sparkline-chart
-          *ngIf="totalCards > 0"
-          [points]="points$ | ngrxPush"
-        ></mtg-sparkline-chart>
-      </div>
     </ng-container>
   </div>
   <div class="sidebar p-sm wireframe">
@@ -57,18 +51,29 @@
         (ngModelChange)="updateDeck({ name: $event })"
       />
     </div>
-    <div *ngrxLet="avgManaValue$; let avgManaValue">
-      Average Mana Value: {{ avgManaValue }}
-    </div>
-    <div *ngrxLet="totalCards$; let totalCards">
-      Total Cards: {{ totalCards }}
-    </div>
-    <div *ngrxLet="ratios$; let ratios">
-      <div *ngFor="let ratio of ratios">
-        {{ ratio }}
+    <div class="container m-t-sm">
+      <div>
+        <strong>Statistics:</strong>
+        <ol>
+          <li>
+            <strong>Avg Mana Value: </strong> {{ avgManaValue$ | ngrxPush }}
+          </li>
+          <li><strong>Total Cards: </strong> {{ totalCards$ | ngrxPush }}</li>
+          <li>
+            <strong>Color Ratios: </strong>
+            <ol>
+              <li *ngFor="let ratio of ratios$ | ngrxPush">{{ ratio }}%</li>
+            </ol>
+          </li>
+        </ol>
+      </div>
+      <div>
+        <div class="graph wireframe" *ngIf="points$ | ngrxPush as points">
+          <strong>Curve:</strong>
+          <mtg-sparkline-chart [points]="points"></mtg-sparkline-chart>
+        </div>
       </div>
     </div>
-    <mtg-card-search></mtg-card-search>
   </div>
 </div>
 

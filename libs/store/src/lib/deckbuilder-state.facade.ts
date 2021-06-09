@@ -17,12 +17,13 @@ import {
   selectAverageManaValue,
   selectColourRatios,
   selectCurve,
-  selectDeckCards,
+  selectDeckColumns,
   selectDeckInfo,
   selectDeckList,
   selectTotalCards,
 } from './deckbuilder-state.selectors';
 import {
+  Column,
   Deck,
   DeckInfo,
   MoveColumnEvent,
@@ -42,8 +43,8 @@ export class DeckbuilderStateFacade {
     return this._store.pipe(select(selectColourRatios));
   }
 
-  selectDeckCards(): Observable<Card[][] | undefined> {
-    return this._store.pipe(select(selectDeckCards));
+  selectDeckCards(): Observable<Column[] | undefined> {
+    return this._store.pipe(select(selectDeckColumns));
   }
 
   selectDecks(): Observable<Deck[]> {

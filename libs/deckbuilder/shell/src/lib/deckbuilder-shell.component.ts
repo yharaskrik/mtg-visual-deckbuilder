@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   Deck,
   DeckbuilderStateFacade,
@@ -11,6 +11,7 @@ import {
   selector: 'mtg-deckbuilder-shell',
   templateUrl: './deckbuilder-shell.component.html',
   styleUrls: ['./deckbuilder-shell.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DeckbuilderShellComponent {
   cards$ = this.deckbuilderStateFacade.selectDeckCards();
