@@ -1,4 +1,5 @@
 import { Card } from '@mtg/scryfall-api';
+import { Column } from '@mtg/store';
 import memoizee from 'memoizee';
 
 export type Colours = 'white' | 'red' | 'green' | 'blue' | 'black';
@@ -70,17 +71,13 @@ export const calcColumnColours = memoizee(function (
   return colourTotals;
 });
 
-export function sortDeck(cards: Card[][]): Card[][] {
-  const allCards: Card[] = cards.flat();
+export function sortDeck(columns: Column[], cards: Card[]): Column[] {
+  const newColumns: Column[] = columns.map((column) => ({
+    ...column,
+    cards: [],
+  }));
 
-  const highestCmc = allCards.reduce(
-    (prev, cur) => (cur.cmc > prev ? cur.cmc : prev),
-    0
-  );
+  cards.forEach((card) => newColumns[card.cmc].cards.push(card));
 
-  const emptyColumns = createColumns(highestCmc < 10 ? 10 : highestCmc + 1);
-
-  allCards.forEach((card) => emptyColumns[card.cmc].push(card));
-
-  return emptyColumns;
+  return newColumns;
 }

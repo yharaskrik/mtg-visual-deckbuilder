@@ -14,7 +14,7 @@ import {
   styleUrls: ['./deckbuilder-shell-ui.component.scss'],
 })
 export class DeckbuilderShellUiComponent {
-  @Input() cards!: Card[][];
+  @Input() columns!: Column[];
 
   @Input() deck!: DeckInfo;
 

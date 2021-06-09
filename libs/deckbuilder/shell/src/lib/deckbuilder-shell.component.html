@@ -7,7 +7,7 @@
       <mtg-deckbuilder-shell-ui
         *ngIf="deck"
         [deck]="deck"
-        [cards]="cards$ | ngrxPush"
+        [columns]="cards$ | ngrxPush"
         (moveColumn)="moveColumn($event)"
         (moveInColumn)="moveInColumn($event)"
         (removeCard)="removeCard($event)"
@@ -68,12 +68,9 @@
         </ol>
       </div>
       <div>
-        <div class="graph wireframe" *ngrxLet="totalCards$; let totalCards">
+        <div class="graph wireframe" *ngIf="points$ | ngrxPush as points">
           <strong>Curve:</strong>
-          <mtg-sparkline-chart
-            *ngIf="totalCards > 0"
-            [points]="points$ | ngrxPush"
-          ></mtg-sparkline-chart>
+          <mtg-sparkline-chart [points]="points"></mtg-sparkline-chart>
         </div>
       </div>
     </div>
