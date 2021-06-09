@@ -51,6 +51,6 @@ export class DeckbuilderShellUiComponent {
   }
 
   trackColumn(index: number, column: Column): string {
-    return column.name;
+    return column.id;
   }
 }
