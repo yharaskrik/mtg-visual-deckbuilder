@@ -332,6 +332,31 @@
           }
         }
       }
+    },
+    "mana-cost": {
+      "projectType": "library",
+      "root": "libs/mana-cost",
+      "sourceRoot": "libs/mana-cost/src",
+      "prefix": "mtg",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/mana-cost"],
+          "options": {
+            "jestConfig": "libs/mana-cost/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/mana-cost/src/**/*.ts",
+              "libs/mana-cost/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

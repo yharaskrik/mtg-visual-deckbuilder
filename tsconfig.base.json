@@ -20,7 +20,8 @@
       "@mtg/scryfall-api": ["libs/scryfall-api/src/index.ts"],
       "@mtg/card-search": ["libs/card-search/src/index.ts"],
       "@mtg/store": ["libs/store/src/index.ts"],
-      "@mtg/sparkline-chart": ["libs/sparkline-chart/src/index.ts"]
+      "@mtg/sparkline-chart": ["libs/sparkline-chart/src/index.ts"],
+      "@mtg/mana-cost": ["libs/mana-cost/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

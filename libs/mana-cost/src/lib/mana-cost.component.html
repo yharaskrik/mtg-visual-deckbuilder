@@ -1,0 +1,11 @@
+<div class="cost-container">
+  <ng-container *ngFor="let manaCost of manaCosts; let isLast = last">
+    <img
+      height="10"
+      *ngFor="let pip of manaCost"
+      alt="pip of {{ pip }}"
+      src="/assets/pips/{{ pipMap[pip] }}-pip.svg"
+    />
+    <span *ngIf="!isLast">/</span>
+  </ng-container>
+</div>
