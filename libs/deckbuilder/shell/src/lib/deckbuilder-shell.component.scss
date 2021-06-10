@@ -13,33 +13,29 @@
 .frame {
   display: grid;
   height: 100vh;
-  grid-template-columns: 1fr 16rem;
   grid-template-rows: max-content auto;
   grid-template-areas:
-    'top top'
-    'playmat sidebar';
+    'top'
+    'playmat';
 }
 
 .top-bar {
   grid-area: top;
+  display: flex;
+  justify-content: space-between;
 }
 
-.sidebar {
-  grid-area: sidebar;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
+.menuButton {
+  width: 10%;
+}
+
+.search {
+  width: 90%;
 }
 
 .playmat {
   grid-area: playmat;
   overflow: scroll;
-}
-
-.deck-select {
-  position: absolute;
-  left: -100%;
 }
 
 .wireframe {
@@ -56,14 +52,4 @@
 
 .m-t-sm {
   margin-top: 0.5rem;
-}
-
-.divider {
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
 }

@@ -1,20 +1,5 @@
-<div class="frame">
-  <div class="top-bar p-sm wireframe">
-    <mtg-card-search></mtg-card-search>
-  </div>
-  <div class="playmat p-sm wireframe">
-    <ng-container *ngrxLet="deck$; let deck">
-      <mtg-deckbuilder-shell-ui
-        *ngIf="deck"
-        [deck]="deck"
-        [columns]="cards$ | ngrxPush"
-        (moveColumn)="moveColumn($event)"
-        (moveInColumn)="moveInColumn($event)"
-        (removeCard)="removeCard($event)"
-      ></mtg-deckbuilder-shell-ui>
-    </ng-container>
-  </div>
-  <div class="sidebar p-sm wireframe">
+<mat-drawer-container>
+  <mat-drawer #leftDrawer mode="over" position="start">
     <button
       mat-raised-button
       color="primary"
@@ -59,6 +44,37 @@
     >
       Export Deck
     </button>
+  </mat-drawer>
+  <div class="frame">
+    <div class="top-bar p-sm wireframe">
+      <div class="menuButton">
+        <button (click)="leftDrawer.open()" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div class="search">
+        <mtg-card-search></mtg-card-search>
+      </div>
+      <div class="menuButton">
+        <button (click)="rightDrawer.open()" mat-stroked-button>
+          Statistics
+        </button>
+      </div>
+    </div>
+    <div class="playmat p-sm wireframe">
+      <ng-container *ngrxLet="deck$; let deck">
+        <mtg-deckbuilder-shell-ui
+          *ngIf="deck"
+          [deck]="deck"
+          [columns]="cards$ | ngrxPush"
+          (moveColumn)="moveColumn($event)"
+          (moveInColumn)="moveInColumn($event)"
+          (removeCard)="removeCard($event)"
+        ></mtg-deckbuilder-shell-ui>
+      </ng-container>
+    </div>
+  </div>
+  <mat-drawer #rightDrawer mode="over" position="end">
     <div class="container m-t-sm">
       <div>
         <strong>Statistics:</strong>
@@ -85,7 +101,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="deck-select"></div>
+  </mat-drawer>
+</mat-drawer-container>
