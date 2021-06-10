@@ -60,12 +60,16 @@ export class ManaCostComponent {
     '{C}': 'colorless',
   };
 
+  private PIP_REGEX = /{[A-Z0-9]}/g;
+
   @Input() set card(card: Card) {
     const faces = card.card_faces;
     if (faces && faces.length) {
       this.manaCosts = faces.map(
-        (face) => face.mana_cost.match(/{[A-Z0-9]}/g) ?? []
+        (face) => face.mana_cost.match(this.PIP_REGEX) ?? []
       );
+    } else if (card.mana_cost) {
+      this.manaCosts = [card.mana_cost.match(this.PIP_REGEX) ?? []];
     }
   }
 
