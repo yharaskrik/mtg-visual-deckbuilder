@@ -109,10 +109,11 @@ const reducer = createReducer<DeckbuilderState>(
 
     const deck = getSelectedDeck(state.selectedDeck, state);
 
-    const newColumn = deck.columns[column].cards.slice();
-    newColumn.splice(index, 1);
-
-    deck.columns[column].cards = deck.columns[column].cards.slice();
+    deck.columns = deck.columns.slice();
+    deck.columns[column] = {
+      ...deck.columns[column],
+      cards: deck.columns[column].cards.filter((card, idx) => idx !== index),
+    };
 
     return mergeDeckIn(deck, state);
   }),
