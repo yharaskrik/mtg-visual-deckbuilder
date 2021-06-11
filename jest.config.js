@@ -7,5 +7,6 @@ module.exports = {
     '<rootDir>/libs/store',
     '<rootDir>/libs/sparkline-chart',
     '<rootDir>/libs/mana-cost',
+    '<rootDir>/libs/pwa-update',
   ],
 };

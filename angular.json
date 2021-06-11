@@ -387,6 +387,31 @@
           }
         }
       }
+    },
+    "pwa-update": {
+      "projectType": "library",
+      "root": "libs/pwa-update",
+      "sourceRoot": "libs/pwa-update/src",
+      "prefix": "mtg",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/pwa-update"],
+          "options": {
+            "jestConfig": "libs/pwa-update/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/pwa-update/src/**/*.ts",
+              "libs/pwa-update/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }
