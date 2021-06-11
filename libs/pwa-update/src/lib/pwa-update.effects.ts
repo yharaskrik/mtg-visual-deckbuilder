@@ -6,12 +6,12 @@ import { createEffect, EffectNotification, OnRunEffects } from '@ngrx/effects';
 import { asyncScheduler, interval, Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
 
-const HOUR = 1000 * 60 * 30; // 30m interval between checks
+const PERIOD = 1000 * 60 * 30; // 30m interval between checks
 
 @Injectable()
 export class PwaUpdateEffects implements OnRunEffects {
   readonly checkForUpdate$ = createEffect(
-    () => ({ period = HOUR, scheduler = asyncScheduler } = {}) =>
+    () => ({ period = PERIOD, scheduler = asyncScheduler } = {}) =>
       interval(period, scheduler).pipe(
         tap(() => this.swUpdate.checkForUpdate())
       ),
