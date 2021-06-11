@@ -21,10 +21,8 @@ export class PwaUpdateEffects implements OnRunEffects {
   readonly updateAvailable$ = createEffect(
     () =>
       this.swUpdate.available.pipe(
-        tap(
-          () => this.dialog.open(PwaUpdateComponent, { disableClose: true }),
-          take(1)
-        )
+        tap(() => this.dialog.open(PwaUpdateComponent, { disableClose: true })),
+        take(1),
       ),
     { dispatch: false }
   );
