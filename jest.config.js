@@ -6,5 +6,6 @@ module.exports = {
     '<rootDir>/libs/card-search',
     '<rootDir>/libs/store',
     '<rootDir>/libs/sparkline-chart',
+    '<rootDir>/libs/mana-cost',
   ],
 };

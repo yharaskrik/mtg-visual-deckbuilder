@@ -1,9 +1,6 @@
 <ng-select
   #cardSelect
   [loading]="resultsLoading"
-  [items]="results"
-  bindLabel="name"
-  bindValue="id"
   placeholder="Search for a card"
   [virtualScroll]="true"
   [closeOnSelect]="true"
@@ -11,4 +8,9 @@
   [clearSearchOnAdd]="true"
   (change)="cardSelected($event)"
   (search)="searchCards($event)"
-></ng-select>
+>
+  <ng-option *ngFor="let card of results" [value]="card">
+    <mtg-mana-cost [card]="card"></mtg-mana-cost>
+    {{ card.name }}
+  </ng-option>
+</ng-select>

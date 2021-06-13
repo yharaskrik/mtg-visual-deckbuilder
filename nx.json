@@ -39,6 +39,9 @@
     },
     "sparkline-chart": {
       "tags": []
+    },
+    "mana-cost": {
+      "tags": []
     }
   }
 }
