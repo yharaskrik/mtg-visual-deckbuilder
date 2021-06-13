@@ -1,5 +1,13 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { Card } from '@mtg/scryfall-api';
 
 @Component({
@@ -18,7 +26,9 @@ export class CardColumnComponent {
 
   @Output() readonly removeCard: EventEmitter<number>;
 
-  constructor() {
+  @ViewChild('dropList') dropList!: ElementRef;
+
+  constructor(private renderer2: Renderer2) {
     this.removeCard = new EventEmitter<number>();
     this.drop = new EventEmitter<
       CdkDragDrop<{ items: Card[]; index: number }>
@@ -31,5 +41,13 @@ export class CardColumnComponent {
 
   trackCard(index: number, card: Card): string {
     return `${index}-${card.id}`;
+  }
+
+  cardLeft(): void {
+    this.renderer2.removeClass(this.dropList.nativeElement, 'outline');
+  }
+
+  cardEntered(): void {
+    this.renderer2.addClass(this.dropList.nativeElement, 'outline');
   }
 }

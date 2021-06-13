@@ -1,7 +1,10 @@
 <div
+  #dropList
   cdkDropList
   [cdkDropListData]="{ items: cards, index: column }"
   class="list"
+  (cdkDropListExited)="cardLeft()"
+  (cdkDropListEntered)="cardEntered()"
   (cdkDropListDropped)="drop.emit($event)"
 >
   <div
