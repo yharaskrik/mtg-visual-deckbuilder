@@ -1,6 +1,10 @@
 $hover-z-index: 1000000; /* Set this to a ridiculously high number to exceed anything that may be placed in the column. */
 $cdk-drag-preview-z-index: 1000001; /* Set this higher than the hover z-index to prevent weird interactions. */
 
+.outline {
+  border: solid 2px black !important;
+}
+
 .list {
   background: white;
   border: solid 1px #ccc;
