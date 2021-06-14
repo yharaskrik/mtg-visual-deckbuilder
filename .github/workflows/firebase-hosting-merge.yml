@@ -9,6 +9,9 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    env:
+      NX_BRANCH: ${{ github.event.pull_request.head.ref }}
+      NX_RUN_GROUP: ${{ github.run_id }}
     steps:
       - uses: actions/checkout@v2
         with:
