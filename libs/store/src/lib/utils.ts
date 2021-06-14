@@ -1,6 +1,6 @@
 import { Card } from '@mtg/scryfall-api';
-import { Column } from '@mtg/store';
 import memoizee from 'memoizee';
+import { Column } from './types';
 
 export type Colours = 'white' | 'red' | 'green' | 'blue' | 'black';
 

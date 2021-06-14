@@ -41,7 +41,7 @@
       "prefix": "mtg",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@nrwl/angular:webpack-browser",
           "options": {
             "allowedCommonJsDependencies": ["memoizee"],
             "outputPath": "dist/apps/deckbuilder",
@@ -314,6 +314,21 @@
       "sourceRoot": "libs/sparkline-chart/src",
       "prefix": "mtg",
       "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "project": "libs/sparkline-chart/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/sparkline-chart/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/sparkline-chart/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/sparkline-chart"],
@@ -339,6 +354,21 @@
       "sourceRoot": "libs/mana-cost/src",
       "prefix": "mtg",
       "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "project": "libs/mana-cost/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/mana-cost/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/mana-cost/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/mana-cost"],

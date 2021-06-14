@@ -1,5 +1,4 @@
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Deck } from '@mtg/store';
 import { Action, createReducer, on } from '@ngrx/store';
 import { nanoid } from 'nanoid';
 import {
@@ -14,6 +13,7 @@ import {
   updateDeck,
 } from './deckbuilder-state.actions';
 import { DeckbuilderState, initialDeckbuilderState } from './deckbuilder.state';
+import { Deck } from './types';
 import { createColumns, sortDeck } from './utils';
 
 function getSelectedDeck(deckId: string, state: DeckbuilderState): Deck {

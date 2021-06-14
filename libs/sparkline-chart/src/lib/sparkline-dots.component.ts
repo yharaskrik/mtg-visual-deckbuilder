@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Point } from './types';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg:g[mtg-sparkline-dots]',
   template: `
     <svg:circle
