@@ -3,6 +3,7 @@ import { Point } from './types';
 import { getPathCommandsForPolygon } from './utils';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg:g[mtg-sparkline-area]',
   template: `
     <svg:defs>

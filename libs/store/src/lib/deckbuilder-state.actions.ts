@@ -1,11 +1,11 @@
 import { Card } from '@mtg/scryfall-api';
+import { createAction, props } from '@ngrx/store';
 import {
   MoveColumnEvent,
   MoveInColumnEvent,
   SortBy,
   UpdateDeck,
-} from '@mtg/store';
-import { createAction, props } from '@ngrx/store';
+} from './types';
 
 export const moveColumn = createAction(
   '[@mtg/deckbuilder/card/move/column] Move card from one column to another',

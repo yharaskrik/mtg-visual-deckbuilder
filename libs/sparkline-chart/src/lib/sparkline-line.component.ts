@@ -3,6 +3,7 @@ import { Point } from './types';
 import { getPathCommandsForLine } from './utils';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg:g[mtg-sparkline-line]',
   template: `<svg:path [attr.d]="d" />`,
   styles: [

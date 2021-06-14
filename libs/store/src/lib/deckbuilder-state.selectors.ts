@@ -1,4 +1,3 @@
-import { DeckInfo } from '@mtg/store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { createChildSelectors } from 'ngrx-child-selectors';
 import {
@@ -6,6 +5,7 @@ import {
   DECKBUILDER_STATE_KEY,
   initialDeckbuilderState,
 } from './deckbuilder.state';
+import { DeckInfo } from './types';
 import {
   calcColumnColours,
   ColourTotal,

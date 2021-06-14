@@ -20,7 +20,7 @@ export class CardColumnComponent {
 
   @Input() column!: number;
 
-  @Output() readonly drop: EventEmitter<
+  @Output() readonly dropCard: EventEmitter<
     CdkDragDrop<{ items: Card[]; index: number }>
   >;
 
@@ -30,7 +30,7 @@ export class CardColumnComponent {
 
   constructor(private renderer2: Renderer2) {
     this.removeCard = new EventEmitter<number>();
-    this.drop = new EventEmitter<
+    this.dropCard = new EventEmitter<
       CdkDragDrop<{ items: Card[]; index: number }>
     >();
   }

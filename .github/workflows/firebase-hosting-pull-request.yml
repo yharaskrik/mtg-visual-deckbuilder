@@ -9,8 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: git fetch origin master
       - run: yarn install --frozen-lockfile
-      - run: yarn ng build --configuration=production
+      - run: yarn nx affected:lint --parallel
+      - run: yarn nx affected:build --configuration=production --with-deps --parallel
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
