@@ -18,6 +18,7 @@ jobs:
           fetch-depth: 0
       - run: git fetch origin master
       - run: yarn install --frozen-lockfile
+      - run: yarn format:check --all
       - run: yarn nx affected:lint --parallel --all
       - run: yarn nx affected:build --configuration=production --with-deps --parallel --all
       - uses: FirebaseExtended/action-hosting-deploy@v0
