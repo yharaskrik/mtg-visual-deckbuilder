@@ -1,4 +1,5 @@
-import { Action, createAction, createReducer, on, props } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
+import { pwaEnabled } from './pwa-update.actions';
 
 export interface PwaState {
   enabled: boolean;
@@ -7,15 +8,6 @@ export interface PwaState {
 export const initialState: PwaState = {
   enabled: false,
 };
-
-export const ActionTypes = {
-  PWA_ENABLED: '[pwa-update/enabled] PWA enabled',
-};
-
-export const pwaEnabled = createAction(
-  ActionTypes.PWA_ENABLED,
-  props<{ enabled: boolean }>()
-);
 
 const _pwaReducer = createReducer(
   initialState,

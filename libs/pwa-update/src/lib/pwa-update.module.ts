@@ -1,28 +1,32 @@
-import { SwUpdate } from '@angular/service-worker';
 import { CommonModule } from '@angular/common';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { SwUpdate } from '@angular/service-worker';
 import { EffectsModule } from '@ngrx/effects';
 import { Store, StoreModule } from '@ngrx/store';
-import { MatDialogModule } from '@angular/material/dialog';
-
-import { PwaInitializer } from './pwa-update.init';
-import { PwaReducer } from './pwa-update.store';
-import { PwaUpdateEffects } from './pwa-update.effects';
 import { PwaUpdateComponent } from './pwa-update.component';
+import { PwaInitializer } from './pwa-update.initializer';
+import { PwaReducer, PwaUpdateEffects } from './store';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatDialogModule,
+    MatSnackBarModule,
     StoreModule.forFeature('pwaState', PwaReducer),
     EffectsModule.forFeature([PwaUpdateEffects]),
   ],
   declarations: [PwaUpdateComponent],
-  providers: [{
-    provide: APP_INITIALIZER,
-    useFactory: PwaInitializer,
-    multi: true,
-    deps: [Store, SwUpdate]
-  }]
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: PwaInitializer,
+      multi: true,
+      deps: [Store, SwUpdate],
+    },
+  ],
 })
-export class PwaUpdateModule {}
+export class PwaUpdateModule {
+  constructor(snackBar: MatSnackBar) {
+    snackBar.openFromComponent(PwaUpdateComponent);
+  }
+}

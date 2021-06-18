@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { SwUpdate } from '@angular/service-worker';
-import { PwaUpdateComponent } from '@mtg/pwa-update';
+import { PwaUpdateComponent } from '../pwa-update.component';
 import { createEffect, EffectNotification, OnRunEffects } from '@ngrx/effects';
 import { asyncScheduler, interval, Observable } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-const PERIOD = 1000 * 60 * 30; // 30m interval between checks
+const PERIOD = 1000 * 60 * 30; // 30m interval between checks when enabled
 
 @Injectable()
 export class PwaUpdateEffects implements OnRunEffects {
@@ -21,13 +21,13 @@ export class PwaUpdateEffects implements OnRunEffects {
   readonly updateAvailable$ = createEffect(
     () =>
       this.swUpdate.available.pipe(
-        tap(() => this.dialog.open(PwaUpdateComponent, { disableClose: true })),
+        tap(() => this.snackBar.openFromComponent(PwaUpdateComponent)),
         take(1),
       ),
     { dispatch: false }
   );
 
-  constructor(private swUpdate: SwUpdate, private dialog: MatDialog) {}
+  constructor(private readonly swUpdate: SwUpdate, private readonly snackBar: MatSnackBar) {}
 
   ngrxOnRunEffects(resolvedEffects$: Observable<EffectNotification>) {
     return resolvedEffects$;
