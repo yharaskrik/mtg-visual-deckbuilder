@@ -387,6 +387,46 @@
           }
         }
       }
+    },
+    "pwa-update": {
+      "projectType": "library",
+      "root": "libs/pwa-update",
+      "sourceRoot": "libs/pwa-update/src",
+      "prefix": "mtg",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "project": "libs/pwa-update/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/pwa-update/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "libs/pwa-update/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/pwa-update"],
+          "options": {
+            "jestConfig": "libs/pwa-update/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/pwa-update/src/**/*.ts",
+              "libs/pwa-update/src/**/*.html"
+            ]
+          }
+        }
+      }
     }
   }
 }

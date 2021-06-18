@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CardSearchModule } from '@mtg/card-search';
+import { PwaUpdateModule } from '@mtg/pwa-update';
 import { SparklineChartModule } from '@mtg/sparkline-chart';
 import { DeckbuilderStateModule } from '@mtg/store';
 import { ReactiveComponentModule } from '@ngrx/component';
@@ -23,6 +24,7 @@ import { DeckbuilderShellComponent } from './deckbuilder-shell.component';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
+    PwaUpdateModule,
   ],
   declarations: [DeckbuilderShellComponent],
 })
