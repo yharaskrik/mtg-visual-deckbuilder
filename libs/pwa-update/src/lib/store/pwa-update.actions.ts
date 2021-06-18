@@ -1,4 +1,4 @@
-import { createAction, props } from "@ngrx/store";
+import { createAction, props } from '@ngrx/store';
 
 export const ActionTypes = {
   PWA_ENABLED: '[pwa-update/enabled] PWA enabled',

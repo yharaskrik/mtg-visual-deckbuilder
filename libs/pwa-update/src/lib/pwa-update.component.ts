@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatSnackBarRef } from '@angular/material/snack-bar';
 import { SwUpdate } from '@angular/service-worker';
 
@@ -6,6 +6,7 @@ import { SwUpdate } from '@angular/service-worker';
   selector: 'mtg-pwa-update',
   templateUrl: './pwa-update.component.html',
   styleUrls: ['./pwa-update.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PwaUpdateComponent implements OnInit {
   constructor(
@@ -13,7 +14,7 @@ export class PwaUpdateComponent implements OnInit {
     public readonly snackBarRef: MatSnackBarRef<PwaUpdateComponent>
   ) {}
 
-  update(): void {
+  private update(): void {
     this.sw.activateUpdate().then(() => location.reload());
   }
 
