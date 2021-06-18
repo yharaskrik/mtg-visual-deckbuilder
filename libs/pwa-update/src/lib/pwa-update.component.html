@@ -1,2 +1,9 @@
 <span>New version available</span>
-<button type="button" (click)="snackBarRef.dismissWithAction()">Update</button>
+<button
+  mtgPageVisibility
+  type="button"
+  (click)="snackBarRef.dismissWithAction()"
+  (runBackgroundUpdate)="snackBarRef.dismissWithAction()"
+>
+  Update
+</button>
